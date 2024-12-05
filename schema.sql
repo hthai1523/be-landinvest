@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS landinvest;
 USE landinvest;
 
 -- Tạo bảng Provinces
-CREATE TABLE IF NOT EXISTS Provinces (
+CREATE TABLE IF NOT EXISTS `Provinces` (
     ProvinceID INT PRIMARY KEY AUTO_INCREMENT,
     ProvinceName VARCHAR(255) NOT NULL
 );
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `Groups` (
 );
 
 -- Tạo bảng Users
-CREATE TABLE IF NOT EXISTS Users (
+CREATE TABLE IF NOT EXISTS `Users` (
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     FullName VARCHAR(50) NOT NULL,
     Username VARCHAR(50) UNIQUE,
@@ -40,11 +40,11 @@ CREATE TABLE IF NOT EXISTS Users (
     BirthPlace VARCHAR(255),
     Confirmed BOOLEAN DEFAULT FALSE,
     Blocked BOOLEAN DEFAULT FALSE,
-    Create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Create_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tạo bảng ForumPosts
-CREATE TABLE IF NOT EXISTS ForumPosts (
+CREATE TABLE IF NOT EXISTS `ForumPosts` (
     PostID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT NOT NULL,
     GroupID INT NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS ForumPosts (
     PostLongitude NUMERIC(11, 8),
     UpdatePostAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     timeView INT DEFAULT NULL,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES `Users`(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (GroupID) REFERENCES `Groups`(GroupID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -109,3 +109,5 @@ VALUES (
     0,                     -- Blocked (0 là chưa bị chặn, 1 là bị chặn)
     NOW()                  -- Create_at (thời gian tạo tài khoản, sử dụng hàm NOW() để lấy thời gian hiện tại)
 );
+
+ALTER TABLE ForumPosts ADD Images JSON DEFAULT NULL;
